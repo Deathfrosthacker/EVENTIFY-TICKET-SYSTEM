@@ -1,6 +1,6 @@
 .section {
-  padding: 80px 0;
-  background-color: var(--bg-body);
+  padding: 100px 0;
+  background-color: var(--bg-section-dark);
   position: relative;
   overflow: hidden;
 }
@@ -12,7 +12,7 @@
   transform: translate(-50%, -50%);
   width: 800px;
   height: 800px;
-  background: radial-gradient(circle, rgba(37, 99, 235, 0.05) 0%, rgba(255, 255, 255, 0) 70%);
+  background: radial-gradient(circle, rgba(37, 99, 235, 0.06) 0%, transparent 70%);
   z-index: 0;
   pointer-events: none;
 }
@@ -23,65 +23,79 @@
 }
 
 .card {
-  background-color: var(--secondary);
+  background: linear-gradient(135deg, rgba(17, 24, 39, 0.9) 0%, rgba(15, 23, 42, 0.9) 100%);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: var(--border-radius-lg);
   padding: 60px;
   display: grid;
-  grid-template-columns: 1.2fr 1.0fr;
-  gap: 40px;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 48px;
   align-items: center;
-  box-shadow: var(--shadow-xl);
-  overflow: hidden;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5), var(--glow-blue);
   position: relative;
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  overflow: hidden;
+}
+
+/* Top left accent corner */
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle at top left, rgba(37, 99, 235, 0.12) 0%, transparent 70%);
+  pointer-events: none;
 }
 
 .content {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
   gap: 24px;
+  align-items: flex-start;
 }
 
 .badge {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background-color: rgba(249, 115, 22, 0.15);
+  background-color: var(--accent-light);
   color: var(--accent);
-  padding: 6px 12px;
+  padding: 6px 14px;
   border-radius: var(--border-radius-xl);
   font-size: 0.8rem;
   font-weight: 700;
-  border: 1px solid rgba(249, 115, 22, 0.2);
+  border: 1px solid rgba(249, 115, 22, 0.25);
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
 
 .title {
   font-size: 2.25rem;
-  color: var(--text-white);
+  font-weight: 800;
+  color: var(--text-primary);
   line-height: 1.2;
 }
 
 .text {
-  font-size: 1.05rem;
-  color: var(--text-light);
-  line-height: 1.6;
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
 }
 
 .features {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  margin-bottom: 8px;
 }
 
 .featureItem {
   display: flex;
   align-items: center;
   gap: 10px;
-  color: var(--text-white);
+  color: var(--text-secondary);
   font-weight: 500;
   font-size: 0.95rem;
 }
@@ -90,61 +104,58 @@
   color: var(--accent);
 }
 
-/* Dashboard Mockup styles */
+/* Dashboard Mockup */
 .visualSide {
   display: flex;
   justify-content: center;
-  align-items: center;
 }
 
 .dashboardMock {
-  background-color: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: var(--border-radius-md);
   width: 100%;
-  max-width: 380px;
+  max-width: 360px;
+  background-color: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--border-radius-md);
   overflow: hidden;
-  box-shadow: var(--shadow-xl);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
 }
 
 .mockHeader {
-  background-color: rgba(255, 255, 255, 0.05);
+  background-color: rgba(255, 255, 255, 0.03);
   padding: 10px 16px;
   display: flex;
   align-items: center;
   gap: 6px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .mockDot {
-  width: 8px;
-  height: 8px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
-  background-color: rgba(255, 255, 255, 0.2);
+  opacity: 0.8;
 }
 
 .mockTitle {
-  font-size: 0.75rem;
-  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.3);
   font-family: monospace;
-  margin-left: 10px;
+  margin-left: 8px;
 }
 
 .mockContent {
   padding: 24px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
 }
 
 .mockLabel {
-  font-size: 0.75rem;
-  color: rgba(255, 255, 255, 0.5);
-  font-weight: 600;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.08em;
 }
 
 .mockSalesRow {
@@ -155,50 +166,42 @@
 }
 
 .mockSalesValue {
-  font-size: 1.75rem;
+  font-size: 1.6rem;
   font-weight: 800;
   color: var(--text-white);
   letter-spacing: -0.02em;
 }
 
 .mockGrowth {
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   color: var(--success);
-  font-weight: 600;
+  font-weight: 700;
   background-color: rgba(16, 185, 129, 0.1);
-  padding: 2px 8px;
+  padding: 3px 8px;
   border-radius: var(--border-radius-sm);
+  border: 1px solid rgba(16, 185, 129, 0.2);
 }
 
 .mockChart {
   display: flex;
   align-items: flex-end;
-  gap: 12px;
+  gap: 10px;
   height: 80px;
-  margin-top: 16px;
+  margin-top: 12px;
 }
 
 .chartBar {
-  background: linear-gradient(180deg, var(--primary) 0%, rgba(37, 99, 235, 0.3) 100%);
   flex: 1;
+  background: linear-gradient(180deg, var(--primary) 0%, rgba(37, 99, 235, 0.2) 100%);
   border-radius: 4px 4px 0 0;
-  animation: heightAnim 1s ease forwards;
 }
 
-@keyframes heightAnim {
-  from {
-    height: 0 !important;
-  }
-}
-
-/* Responsive configurations */
+/* Responsive */
 @media (max-width: 1024px) {
   .card {
     padding: 40px;
-    grid-template-columns: 1.1fr 1fr;
-    gap: 30px;
+    gap: 32px;
   }
-  
   .title {
     font-size: 1.85rem;
   }
@@ -206,26 +209,24 @@
 
 @media (max-width: 768px) {
   .section {
-    padding: 60px 0;
+    padding: 70px 0;
   }
-
   .card {
     grid-template-columns: 1fr;
     padding: 32px 24px;
     gap: 40px;
     text-align: center;
   }
-  
   .content {
     align-items: center;
   }
-  
   .features {
     align-items: flex-start;
     text-align: left;
+    width: 100%;
+    max-width: 320px;
     margin: 0 auto;
   }
-  
   .dashboardMock {
     max-width: 100%;
   }

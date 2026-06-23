@@ -4,18 +4,18 @@
   left: 0;
   right: 0;
   z-index: 1000;
-  padding: 20px 0;
-  transition: all var(--transition-normal);
+  padding: 24px 0;
+  transition: all var(--transition-slow);
   background-color: transparent;
 }
 
 .scrolled {
-  padding: 12px 0;
-  background-color: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03);
-  border-bottom: 1px solid rgba(226, 232, 240, 0.6);
+  padding: 16px 0;
+  background-color: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .container {
@@ -27,15 +27,34 @@
 .logo {
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: 1.5rem;
-  font-weight: 800;
-  color: var(--secondary);
-  letter-spacing: -0.03em;
+  gap: 10px;
 }
 
 .logoIcon {
   color: var(--primary);
+  filter: drop-shadow(0 0 8px rgba(37, 99, 235, 0.5));
+  transition: transform var(--transition-normal);
+}
+
+.logo:hover .logoIcon {
+  transform: rotate(-10deg) scale(1.1);
+}
+
+.logoText {
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  display: flex;
+}
+
+.logoBlue {
+  color: #2563EB;
+  text-shadow: 0 0 15px rgba(37, 99, 235, 0.6);
+}
+
+.logoOrange {
+  color: #F97316;
+  text-shadow: 0 0 15px rgba(249, 115, 22, 0.6);
 }
 
 .desktopNav {
@@ -46,7 +65,7 @@
 .navLinks {
   display: flex;
   list-style: none;
-  gap: 32px;
+  gap: 36px;
 }
 
 .navLinks a {
@@ -55,10 +74,11 @@
   color: var(--text-secondary);
   position: relative;
   padding: 8px 0;
+  transition: color var(--transition-fast);
 }
 
 .navLinks a:hover {
-  color: var(--primary);
+  color: var(--text-primary);
 }
 
 .navLinks a::after {
@@ -77,11 +97,14 @@
 }
 
 .active {
-  color: var(--primary) !important;
+  color: var(--text-white) !important;
+  text-shadow: 0 0 12px rgba(255, 255, 255, 0.3);
 }
 
 .active::after {
   width: 100% !important;
+  background-color: var(--primary) !important;
+  box-shadow: 0 0 10px var(--primary);
 }
 
 .authButtons {
@@ -102,7 +125,7 @@
 }
 
 .btnLink:hover {
-  color: var(--primary);
+  color: var(--text-white);
 }
 
 .hamburger {
@@ -118,33 +141,19 @@
 }
 
 .hamburger:hover {
-  background-color: var(--secondary-light);
+  background-color: rgba(255, 255, 255, 0.05);
 }
 
-/* Mobile styles */
-@media (max-width: 768px) {
-  .desktopNav {
-    display: none;
-  }
-  
-  .authButtons {
-    display: none;
-  }
-  
-  .hamburger {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-}
-
+/* Mobile Nav Drawer */
 .mobileOverlay {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(255, 255, 255, 0.98);
+  background-color: rgba(0, 0, 0, 0.97);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   z-index: 999;
   display: flex;
   justify-content: center;
@@ -174,38 +183,39 @@
   display: flex;
   flex-direction: column;
   list-style: none;
-  gap: 20px;
+  gap: 24px;
 }
 
 .mobileLinks a {
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   font-weight: 600;
-  color: var(--text-primary);
+  color: var(--text-secondary);
   display: block;
   padding: 8px 0;
-  transition: color var(--transition-fast);
+  transition: all var(--transition-fast);
 }
 
 .mobileLinks a:hover {
-  color: var(--primary);
+  color: var(--text-white);
 }
 
 .mobileActive {
-  color: var(--primary) !important;
+  color: var(--text-white) !important;
+  text-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
 }
 
 .mobileAuthDivider {
   height: 1px;
-  background-color: var(--secondary-light);
+  background-color: rgba(255, 255, 255, 0.08);
   margin: 15px 0;
 }
 
 .mobileBtnLink {
   background: transparent;
   border: none;
-  color: var(--text-primary);
+  color: var(--text-secondary);
   font-family: var(--font-sans);
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   font-weight: 600;
   cursor: pointer;
   padding: 8px 0;
@@ -214,5 +224,22 @@
 }
 
 .mobileBtnLink:hover {
-  color: var(--primary);
+  color: var(--text-white);
+}
+
+/* Responsive configurations */
+@media (max-width: 768px) {
+  .desktopNav {
+    display: none;
+  }
+  
+  .authButtons {
+    display: none;
+  }
+  
+  .hamburger {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }

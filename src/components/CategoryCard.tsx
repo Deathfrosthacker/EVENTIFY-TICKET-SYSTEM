@@ -1,5 +1,5 @@
 import React from 'react';
-import { Music, Briefcase, Cpu, Trophy, BookOpen, Sparkles } from 'lucide-react';
+import { Music, Sparkles, Shirt, Laugh, Utensils, Gamepad2 } from 'lucide-react';
 import type { Category } from '../types';
 import styles from './CategoryCard.module.css';
 
@@ -10,12 +10,12 @@ interface CategoryCardProps {
 }
 
 const iconMap: Record<string, React.ComponentType<{ size?: number; className?: string }>> = {
+  Gamepad2,
   Music,
-  Briefcase,
-  Cpu,
-  Trophy,
-  BookOpen,
   Sparkles,
+  Shirt,
+  Laugh,
+  Utensils,
 };
 
 export const CategoryCard: React.FC<CategoryCardProps> = ({ category, isActive = false, onClick }) => {
@@ -23,18 +23,18 @@ export const CategoryCard: React.FC<CategoryCardProps> = ({ category, isActive =
 
   const getCategoryTheme = () => {
     switch (category.name) {
-      case 'Music':
-        return styles.music;
-      case 'Business':
-        return styles.business;
-      case 'Technology':
-        return styles.technology;
-      case 'Sports':
-        return styles.sports;
-      case 'Education':
-        return styles.education;
-      case 'Festivals':
-        return styles.festivals;
+      case 'Sports & Gaming':
+        return styles.sportsGaming;
+      case 'Music & Live Concerts':
+        return styles.musicConcerts;
+      case 'Dance & After Party':
+        return styles.danceParty;
+      case 'Fashion':
+        return styles.fashion;
+      case 'Comedy':
+        return styles.comedy;
+      case 'Food & Drinks':
+        return styles.foodDrinks;
       default:
         return styles.default;
     }
@@ -53,6 +53,7 @@ export const CategoryCard: React.FC<CategoryCardProps> = ({ category, isActive =
         <h3 className={styles.name}>{category.name}</h3>
         <p className={styles.count}>{category.eventCount} Events</p>
       </div>
+      <div className={styles.glowOverlay}></div>
     </button>
   );
 };

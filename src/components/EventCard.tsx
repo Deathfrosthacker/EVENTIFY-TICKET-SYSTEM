@@ -5,23 +5,29 @@ import styles from './EventCard.module.css';
 
 interface EventCardProps {
   event: Event;
+  index?: number;
   onViewDetails?: (event: Event) => void;
 }
 
-export const EventCard: React.FC<EventCardProps> = ({ event, onViewDetails }) => {
+export const EventCard: React.FC<EventCardProps> = ({ event, index = 0, onViewDetails }) => {
   const [isLiked, setIsLiked] = useState(false);
 
   const formatPrice = (price: number) => {
-    return price === 0 ? 'Free' : `$${price.toFixed(2)}`;
+    return `KES ${price.toLocaleString()}`;
   };
 
   const handleLikeToggle = (e: React.MouseEvent) => {
-    e.stopPropagation(); // Avoid triggering card click
+    e.stopPropagation();
     setIsLiked(!isLiked);
   };
 
+  const glowStyle = index % 2 === 0 ? styles.glowBlue : styles.glowOrange;
+
   return (
-    <article className={styles.card} onClick={() => onViewDetails && onViewDetails(event)}>
+    <article 
+      className={`${styles.card} ${glowStyle}`} 
+      onClick={() => onViewDetails && onViewDetails(event)}
+    >
       <div className={styles.imageContainer}>
         <img 
           src={event.imageUrl} 

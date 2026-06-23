@@ -18,17 +18,17 @@ export const Home: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [searchParams, setSearchParams] = useState({ query: '', location: '', category: '' });
 
-  // Handle search submission
   const handleSearch = (query: string, location: string, category: string) => {
     setSearchParams({ query, location, category });
-    // Sync category selection with search dropdown if chosen
     setSelectedCategory(category || null);
+    // Scroll down to events section
+    const el = document.getElementById('events');
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
-  // Handle category card click
   const handleCategoryClick = (categoryName: string) => {
     if (selectedCategory === categoryName) {
-      setSelectedCategory(null); // Deselect
+      setSelectedCategory(null);
       setSearchParams(prev => ({ ...prev, category: '' }));
     } else {
       setSelectedCategory(categoryName);
@@ -36,72 +36,54 @@ export const Home: React.FC = () => {
     }
   };
 
-  // Filter events based on active category card and search parameters
   const filteredEvents = mockEvents.filter((event) => {
-    // 1. Filter by category (from category card or search dropdown)
     const activeCategoryFilter = selectedCategory || searchParams.category;
     if (activeCategoryFilter && event.category.toLowerCase() !== activeCategoryFilter.toLowerCase()) {
       return false;
     }
-    
-    // 2. Filter by search query (title or description)
     if (searchParams.query) {
       const q = searchParams.query.toLowerCase();
-      const matchTitle = event.title.toLowerCase().includes(q);
-      const matchDesc = event.description.toLowerCase().includes(q);
-      if (!matchTitle && !matchDesc) return false;
-    }
-    
-    // 3. Filter by location
-    if (searchParams.location) {
-      const loc = searchParams.location.toLowerCase();
-      if (!event.location.toLowerCase().includes(loc)) {
+      if (!event.title.toLowerCase().includes(q) && !event.description.toLowerCase().includes(q)) {
         return false;
       }
     }
-
+    if (searchParams.location) {
+      if (!event.location.toLowerCase().includes(searchParams.location.toLowerCase())) {
+        return false;
+      }
+    }
     return true;
   });
+
+  const isFiltered = !!(selectedCategory || searchParams.query || searchParams.location);
 
   return (
     <div className={styles.page}>
       <Navbar />
-      
+
       <main className={styles.mainContent}>
-        {/* Hero Section */}
+        {/* ── Hero ── */}
         <Hero />
-        
-        {/* Search Bar Section */}
+
+        {/* ── Search Bar ── */}
         <SearchBar onSearch={handleSearch} />
-        
-        {/* Category Browsing Section */}
+
+        {/* ── Browse by Category ── */}
         <section className="section" id="categories">
           <div className="container">
             <div className="section-header">
-              <span 
-                className="btn btn-sm btn-secondary" 
-                style={{ 
-                  pointerEvents: 'none', 
-                  width: 'fit-content', 
-                  margin: '0 auto', 
-                  color: 'var(--primary)', 
-                  borderColor: 'var(--primary-light)', 
-                  backgroundColor: 'var(--primary-light)' 
-                }}
-              >
-                Categories
-              </span>
+              <span className="badge-glow">Categories</span>
               <h2 className="section-title">Browse by Category</h2>
               <p className="section-subtitle">
-                Select a category to discover tailored events, concerts, or workshops.
+                Pick your vibe — sports, music, fashion, comedy and more.
               </p>
             </div>
-            
+
             <div className={styles.categoryGrid}>
               {mockCategories.map((category) => (
-                <CategoryCard 
-                  key={category.id} 
-                  category={category} 
+                <CategoryCard
+                  key={category.id}
+                  category={category}
                   isActive={selectedCategory === category.name}
                   onClick={() => handleCategoryClick(category.name)}
                 />
@@ -110,36 +92,28 @@ export const Home: React.FC = () => {
           </div>
         </section>
 
-        {/* Featured Events Section */}
-        <section className="section section-bg-white" id="events">
+        {/* ── Featured Events ── */}
+        <section className="section section-bg-dark" id="events">
           <div className="container">
             <div className={styles.eventsHeader}>
-              <div className="section-header" style={{ margin: 0, alignItems: 'flex-start', textAlign: 'left' }}>
-                <span 
-                  className="btn btn-sm btn-secondary" 
-                  style={{ 
-                    pointerEvents: 'none', 
-                    width: 'fit-content', 
-                    color: 'var(--primary)', 
-                    borderColor: 'var(--primary-light)', 
-                    backgroundColor: 'var(--primary-light)' 
-                  }}
-                >
-                  Featured Events
-                </span>
-                <h2 className="section-title">Discover Featured Events</h2>
-                <p className="section-subtitle">
-                  Handpicked trending events near you. Secure your ticket today.
+              <div className={styles.eventsHeadingGroup}>
+                <span className="badge-glow">Featured Events</span>
+                <h2 className="section-title" style={{ textAlign: 'left' }}>
+                  {isFiltered ? 'Filtered Results' : 'Hot in Nairobi 🔥'}
+                </h2>
+                <p className="section-subtitle" style={{ textAlign: 'left' }}>
+                  {isFiltered
+                    ? `${filteredEvents.length} event${filteredEvents.length !== 1 ? 's' : ''} match your search`
+                    : 'Handpicked trending events this season. Book fast — spots fill up!'}
                 </p>
               </div>
 
-              {/* Clear filters trigger */}
-              {(selectedCategory || searchParams.query || searchParams.location) && (
-                <button 
+              {isFiltered && (
+                <button
                   onClick={() => {
                     setSelectedCategory(null);
                     setSearchParams({ query: '', location: '', category: '' });
-                  }} 
+                  }}
                   className={styles.clearBtn}
                 >
                   Clear Filters
@@ -149,18 +123,20 @@ export const Home: React.FC = () => {
 
             {filteredEvents.length > 0 ? (
               <div className={styles.eventsGrid}>
-                {filteredEvents.map((event) => (
-                  <EventCard 
-                    key={event.id} 
-                    event={event} 
-                    onViewDetails={(evt) => alert(`Mock details: Opening booking page for "${evt.title}"`)}
+                {filteredEvents.map((event, index) => (
+                  <EventCard
+                    key={event.id}
+                    event={event}
+                    index={index}
+                    onViewDetails={(evt) => alert(`🎫 Booking opens for: "${evt.title}"`)}
                   />
                 ))}
               </div>
             ) : (
               <div className={styles.noResults}>
-                <p className={styles.noResultsText}>No events found matching your current filter settings.</p>
-                <button 
+                <span className={styles.noResultsEmoji}>🎤</span>
+                <p className={styles.noResultsText}>No events found for your current filters.</p>
+                <button
                   onClick={() => {
                     setSelectedCategory(null);
                     setSearchParams({ query: '', location: '', category: '' });
@@ -174,50 +150,35 @@ export const Home: React.FC = () => {
           </div>
         </section>
 
-        {/* How It Works Section */}
+        {/* ── How It Works ── */}
         <HowItWorks />
 
-        {/* Organizer CTA Section */}
+        {/* ── Organizer CTA ── */}
         <OrganizerCTA />
 
-        {/* Testimonials Section */}
-        <section className="section" id="testimonials">
+        {/* ── Testimonials ── */}
+        <section className="section section-bg-dark" id="testimonials">
           <div className="container">
             <div className="section-header">
-              <span 
-                className="btn btn-sm btn-secondary" 
-                style={{ 
-                  pointerEvents: 'none', 
-                  width: 'fit-content', 
-                  margin: '0 auto', 
-                  color: 'var(--primary)', 
-                  borderColor: 'var(--primary-light)', 
-                  backgroundColor: 'var(--primary-light)' 
-                }}
-              >
-                Testimonials
-              </span>
-              <h2 className="section-title">What Our Users Say</h2>
+              <span className="badge-glow">Reviews</span>
+              <h2 className="section-title">What Nairobi Says 🗣️</h2>
               <p className="section-subtitle">
-                Thousands of fans and event hosts trust Eventify for their ticketing experiences.
+                Real stories from event goers, students, and organizers across Nairobi.
               </p>
             </div>
 
             <div className={styles.testimonialsGrid}>
               {mockTestimonials.map((testimonial) => (
-                <TestimonialCard 
-                  key={testimonial.id} 
-                  testimonial={testimonial} 
-                />
+                <TestimonialCard key={testimonial.id} testimonial={testimonial} />
               ))}
             </div>
           </div>
         </section>
 
-        {/* Statistics Section */}
+        {/* ── Statistics ── */}
         <Statistics />
 
-        {/* Newsletter Section */}
+        {/* ── Newsletter ── */}
         <Newsletter />
       </main>
 

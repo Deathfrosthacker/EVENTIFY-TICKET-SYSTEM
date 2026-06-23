@@ -21,7 +21,6 @@ export const Navbar: React.FC = () => {
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
-    // Prevent scrolling when mobile menu is open
     if (!isOpen) {
       document.body.style.overflow = 'hidden';
     } else {
@@ -34,7 +33,10 @@ export const Navbar: React.FC = () => {
       <div className={`${styles.container} container`}>
         <a href="#" className={styles.logo}>
           <Calendar className={styles.logoIcon} size={28} />
-          <span>Eventify</span>
+          <span className={styles.logoText}>
+            <span className={styles.logoBlue}>Event</span>
+            <span className={styles.logoOrange}>ify</span>
+          </span>
         </a>
 
         {/* Desktop Nav */}

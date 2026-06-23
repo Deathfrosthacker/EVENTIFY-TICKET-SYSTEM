@@ -28,7 +28,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
             <input 
               type="text" 
               id="searchQuery" 
-              placeholder="What event are you looking for?"
+              placeholder="What experience are you looking for?"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
@@ -46,13 +46,16 @@ export const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
               value={location}
               onChange={(e) => setLocation(e.target.value)}
             >
-              <option value="">Anywhere</option>
-              <option value="New York">New York</option>
-              <option value="San Jose">San Jose</option>
-              <option value="Colorado">Colorado</option>
-              <option value="Chicago">Chicago</option>
-              <option value="San Francisco">San Francisco</option>
-              <option value="Napa Valley">Napa Valley</option>
+              <option value="">Anywhere in Nairobi</option>
+              <option value="Westlands">Westlands</option>
+              <option value="Lang'ata">Lang'ata</option>
+              <option value="Rongai">Rongai</option>
+              <option value="Karen">Karen</option>
+              <option value="Roysambu">Roysambu</option>
+              <option value="Thika">Thika</option>
+              <option value="Ruiru">Ruiru</option>
+              <option value="Ruaka">Ruaka</option>
+              <option value="Umoja">Umoja</option>
             </select>
           </div>
         </div>
@@ -69,12 +72,15 @@ export const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
               onChange={(e) => setCategory(e.target.value)}
             >
               <option value="">All Categories</option>
-              <option value="Music">Music</option>
-              <option value="Business">Business</option>
-              <option value="Technology">Technology</option>
-              <option value="Sports">Sports</option>
+              <option value="Sports & Gaming">Sports & Gaming</option>
               <option value="Education">Education</option>
-              <option value="Festivals">Festivals</option>
+              <option value="Music & Live Concerts">Music & Live Concerts</option>
+              <option value="Dance & After Party">Dance & After Party</option>
+              <option value="Fashion">Fashion</option>
+              <option value="Comedy">Comedy</option>
+              <option value="Film">Film</option>
+              <option value="Theatre and Performing Arts">Theatre & Performing Arts</option>
+              <option value="Food & Drinks">Food & Drinks</option>
             </select>
           </div>
         </div>

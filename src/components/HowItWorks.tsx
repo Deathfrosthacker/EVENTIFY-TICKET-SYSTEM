@@ -8,24 +8,27 @@ export const HowItWorks: React.FC = () => {
       number: '01',
       icon: Search,
       title: 'Discover Events',
-      description: 'Filter events by category, name, or location to find exactly what you are interested in.'
+      description: 'Filter events by category, location, or name to find what excites you.'
     },
     {
       number: '02',
       icon: Ticket,
       title: 'Book Tickets',
-      description: 'Choose your tier, secure your seats, and checkout instantly with our safe, fast system.'
+      description: 'Choose your tickets, pay securely via M-Pesa or card, and checkout instantly.'
     },
     {
       number: '03',
       icon: Sparkles,
       title: 'Enjoy the Experience',
-      description: 'Receive your mobile passes instantly and show them at the venue. Enjoy the show!'
+      description: 'Get your digital passes sent to your phone. Scan at the gate and experience the vibe.'
     }
   ];
 
   return (
-    <section className="section section-bg-white" id="about">
+    <section className="section section-bg-dark" id="about">
+      {/* Background glow orb */}
+      <div className={styles.glowBlob}></div>
+
       <div className="container">
         <div className="section-header">
           <span 
@@ -34,16 +37,16 @@ export const HowItWorks: React.FC = () => {
               pointerEvents: 'none', 
               width: 'fit-content', 
               margin: '0 auto', 
-              color: 'var(--primary)', 
-              borderColor: 'var(--primary-light)', 
-              backgroundColor: 'var(--primary-light)' 
+              color: 'var(--text-white)', 
+              borderColor: 'rgba(255, 255, 255, 0.1)', 
+              backgroundColor: 'rgba(255, 255, 255, 0.03)' 
             }}
           >
-            Easy Steps
+            Vibe Flow
           </span>
-          <h2 className="section-title">How Eventify Works</h2>
+          <h2 className="section-title">How It Works</h2>
           <p className="section-subtitle">
-            Get from discovering concerts to entering the venue in three simple steps.
+            Get from finding experiences to scanning tickets in three fast steps.
           </p>
         </div>
 
