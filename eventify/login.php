@@ -1,12 +1,3 @@
-// TEMPORARY DEBUG: Auto-login as admin for testing
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['email'] === 'admin@eventify.co.ke') {
-    $_SESSION['user_id'] = 1;
-    $_SESSION['user_name'] = 'Admin User';
-    $_SESSION['user_email'] = 'admin@eventify.co.ke';
-    $_SESSION['user_role'] = 'organizer';
-    header('Location: dashboard.php');
-    exit;
-}
 <?php
 /**
  * Eventify - Login Page
