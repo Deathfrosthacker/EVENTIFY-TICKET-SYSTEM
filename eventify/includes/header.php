@@ -32,7 +32,11 @@ function isLoggedIn() {
 }
 
 function isOrganizer() {
-    return isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'organizer';
+    return isset($_SESSION['user_role']) && ($_SESSION['user_role'] === 'organizer' || $_SESSION['user_role'] === 'admin');
+}
+
+function isAdmin() {
+    return isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'admin';
 }
 
 function requireAuth() {
@@ -47,6 +51,15 @@ function requireOrganizer() {
     requireAuth();
     if (!isOrganizer()) {
         setFlash('error', 'Organizer access required.');
+        header('Location: index.php');
+        exit;
+    }
+}
+
+function requireAdmin() {
+    requireAuth();
+    if (!isAdmin()) {
+        setFlash('error', 'Admin access required.');
         header('Location: index.php');
         exit;
     }
