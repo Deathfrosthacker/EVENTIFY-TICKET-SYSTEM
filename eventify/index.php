@@ -1,12 +1,13 @@
 <?php
 /**
  * Eventify - Homepage
+ * Updated: All active events now display on homepage (not just featured)
  */
 require_once 'includes/header.php';
 
 // Load data from database
 $categories = getCategories();
-$events = getFeaturedEvents();
+$events = getAllActiveEvents();
 $testimonials = getTestimonials();
 $stats = getStats();
 
@@ -398,7 +399,7 @@ $userLikes = isLoggedIn() ? getUserLikes($_SESSION['user_id']) : [];
           <img src="<?php echo htmlspecialchars($t['avatar_url']); ?>" alt="<?php echo htmlspecialchars($t['name']); ?>" class="user-avatar" loading="lazy">
           <div class="user-info">
             <h4 class="user-name"><?php echo htmlspecialchars($t['name']); ?></h4>
-           <p class="user-role"><?php echo htmlspecialchars($t['role']); ?><?php echo !empty($t['company']) ? ' at ' . htmlspecialchars($t['company']) : ''; ?></p>
+            <p class="user-role"><?php echo htmlspecialchars($t['role']); ?><?php echo $t['company'] ? ' at ' . htmlspecialchars($t['company']) : ''; ?></p>
           </div>
         </div>
       </div>
